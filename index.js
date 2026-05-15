@@ -1,7 +1,29 @@
 require("dotenv").config();
 
-const { Client, GatewayIntentBits, Events } = require("discord.js");
+const express = require("express");
+const {
+  Client,
+  GatewayIntentBits,
+  Events
+} = require("discord.js");
 
+const app = express();
+
+// ---------------- EXPRESS ----------------
+app.get("/", (req, res) => {
+  res.send("Bot is alive");
+});
+
+app.get("/start", async (req, res) => {
+  console.log("START command received");
+  res.send("OK");
+});
+
+app.listen(process.env.PORT || 3000, () => {
+  console.log("Web server running");
+});
+
+// ---------------- DISCORD BOT ----------------
 const client = new Client({
   intents: [GatewayIntentBits.Guilds]
 });
